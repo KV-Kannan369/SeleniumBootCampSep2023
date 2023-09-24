@@ -1,4 +1,4 @@
-package seleniumbootcamp2023;
+package seleniumbc23;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,12 +9,23 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+/*
+ * Test Steps:
+1. Login to https://login.salesforce.com
+2. Click on toggle menu button from the left corner
+3. Click view All and click Sales from App Launcher
+4. Click on Opportunity tab 
+5. Click on New button
+6. Choose Close date as Tomorrow Date
+7. Click on save 
+8. Verify the Alert message (Complete this field) displayed for Name and Stage                
 
+ */
 
 public class CreateOppoWithoutMandyFlds extends ProjectSpecificationMethod {
 	
 	@Test
-	public void createNewOpportunity() throws InterruptedException
+	public void createOppoWithoutMandyFlds() throws InterruptedException
 	{
 		//User name
 		WebElement user = driver.findElement(By.id("username"));

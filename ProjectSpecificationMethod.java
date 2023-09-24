@@ -1,4 +1,4 @@
-package seleniumbootcamp2023;
+package seleniumbc23;
 
 import java.time.Duration;
 
@@ -26,9 +26,9 @@ public class ProjectSpecificationMethod {
 		options.addArguments("-start-maximized");
 		options.addArguments("--disable-notifications");
 		driver = new ChromeDriver(options);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		driver.get("https://login.salesforce.com/");
-		wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+		wait = new WebDriverWait(driver,Duration.ofSeconds(30));
 
 	}
 	@AfterMethod

@@ -1,4 +1,4 @@
-package seleniumbootcamp2023;
+package seleniumbc23;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,10 +13,22 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+/*
+ * 1. Login to https://login.salesforce.com
+2. Click on toggle menu button from the left corner
+3. Click view All and click Sales from App Launcher
+4. Click on Opportunity tab 
+5. Search the Opportunity 'Salesforce Automation by Your Name'
+6. Click on  the Dropdown icon and Select Delete
+7. Verify Whether Oppurtunity is Deleted using Oppurtunity Name                                                          
+
+Expected Result: Oppurtunity is Successfully deleted                                                                                                
+
+ */
 public class DeleteOpportunity extends ProjectSpecificationMethod {
 
 	@Test
-	public void createNewOpportunity() throws InterruptedException {
+	public void deleteOpportunity() throws InterruptedException {
 		WebElement user = driver.findElement(By.id("username"));
 		user.clear();
 		user.sendKeys("kv.kannan369@gmail.com");
@@ -34,7 +46,7 @@ public class DeleteOpportunity extends ProjectSpecificationMethod {
 		}
 
 		// driver.findElement(By.xpath("//button[text()='View All']")).click();
-		//Thread.sleep(5000);
+		// Thread.sleep(5000);
 		WebElement sales = wait
 				.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span/p[text()='Sales']")));
 		sales.click();
@@ -45,32 +57,18 @@ public class DeleteOpportunity extends ProjectSpecificationMethod {
 		Actions actions = new Actions(driver);
 		WebElement search = driver.findElement(By.xpath("//input[@name='Opportunity-search-input']"));
 		actions.sendKeys(search, "Salesforce Automation by Kannan K V", Keys.ENTER).build().perform();
-		// actions.sendKeys("Salesforce Automation by Kannan K V").build().perform();
-		// actions.sendKeys(search, Keys.ENTER).build().perform();
-		// search.sendKeys("Salesforce Automation by Kannan K V");
-		// search.click();
 		List<WebElement> list = driver.findElements(By.xpath("//table/tbody/tr/td[8]"));
 		int beforesize = list.size();
 		System.out.println("Before RowCount:" + beforesize);
-		// WebElement dd =
-		// wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@title='Show
-		// 3 more actions']")));
-		// WebElement dd =
-		// wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@data-aura-rendered-by='1096:0']//span")));
 		try {
-			WebElement dd = wait.until(ExpectedConditions
-					.presenceOfElementLocated(By.xpath("//tbody/tr[1]/td[8]/span[1]/div[1]/a[1]/span[1]/span[1]")));
-
-			// driver.findElement(By.xpath("//span[@data-aura-rendered-by='1096:0']//span")).click();
-			// WebElement dd = driver.findElement(By.xpath("//a[@title='Show 3 more
-			// actions']"));
-			// dd.click();
-			js.executeScript("arguments[0].click();", dd);
-			WebElement del = driver.findElement(By.xpath("//a[@title='Delete']"));
-			//// a[@title='Delete']
-			// del.click();
+			Thread.sleep(3000);
+			driver.findElement(By.xpath("//div[contains(@class,'forceVirtualActionMarker')]//a[@role='button']/span"))
+					.click();
+			Thread.sleep(10000);
+			WebElement del = wait
+					.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[@title='Delete'])[3]//div")));
+			Thread.sleep(10000);
 			js.executeScript("arguments[0].click();", del);
-
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}

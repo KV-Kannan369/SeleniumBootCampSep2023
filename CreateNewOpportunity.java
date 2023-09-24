@@ -1,4 +1,4 @@
-package seleniumbootcamp2023;
+package seleniumbc23;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,6 +10,22 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.google.gson.annotations.Until;
+
+/*
+ * Test Steps:
+1. Login to https://login.salesforce.com
+2. Click on toggle menu button from the left corner
+3. Click view All and click Sales from App Launcher
+4. Click on Opportunity tab 
+5. Click on New button
+6. Enter Opportunity name as 'Salesforce Automation by Your Name,Get the text and Store it 
+7. Choose close date as Today
+8. Select 'Stage' as Need Analysis
+9. click Save and VerifyOppurtunity Name                  
+Expected Result:New Opportunity should be created with name as  'Salesforce Automation by Your Name'                
+
+ */
 
 public class CreateNewOpportunity extends ProjectSpecificationMethod {
 	
@@ -24,7 +40,7 @@ public class CreateNewOpportunity extends ProjectSpecificationMethod {
 		pwd.sendKeys("OmS@iram369");
 		driver.findElement(By.id("Login")).click();
 		driver.findElement(By.className("slds-icon-waffle")).click();
-		WebElement viewAll = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[text()='View All']")));
+		WebElement viewAll = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[text()='View All']")));
 		viewAll.click();
 		//driver.findElement(By.xpath("//button[text()='View All']")).click();
 		driver.findElement(By.xpath("//span/p[text()='Sales']")).click();
@@ -53,7 +69,9 @@ public class CreateNewOpportunity extends ProjectSpecificationMethod {
 		WebElement need = driver.findElement(By.xpath("(//span[@class='slds-media__body']//following::span[@class='slds-truncate'])[3]"));
 		need.click();
 		driver.findElement(By.xpath("//button[text()='Save']")).click();
-		WebElement output = driver.findElement(By.xpath("//div[contains(text(),'Kannan')]"));
+		//WebElement output = driver.findElement(By.xpath("//div[contains(text(),'Kannan')]"));
+		WebElement output = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(@class,'toastMessage')]/a")));
+		//WebElement output = driver.findElement(By.xpath("//span[contains(@class,'toastMessage')]/a"));
 		String str = output.getText();
 		System.out.println("Output Value: "+str);
 		Assert.assertEquals(storedOpportunity, str);
